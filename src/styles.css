@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url(https://res.cloudinary.com/sbl9/image/upload/q_auto/v1644421751/sketch-gfead3773c_1920_x5rfcp.jpg);
+  background-size: cover;
+  height: 100vh;
+}
+
+main {
+  max-width: 800px;
+  width: 80%;
+  margin: auto;
+  padding: 40px;
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .4); 
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, .15);
+  backdrop-filter: blur(8px);
+}
