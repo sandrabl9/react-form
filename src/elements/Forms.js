@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const colors =  {
@@ -14,6 +14,8 @@ gap: 20px;
 
 @media(max-width: 800px) { 
     grid-template-columns: 1fr;
+    
+    
 }
 `;
 
@@ -23,6 +25,11 @@ font-weight: 700;
 padding: 10px;
 min-height: 40px; 
 cursor: pointer;
+
+
+${props =>props.valid === 'false' && css`
+color: ${colors.error};
+`}
 `;
 //min-height para que en caso de que no pongamos texto en el label el input no se desplace hacía arriba
 
@@ -47,6 +54,13 @@ border: 3px solid transparent;
     outline: none;
     box-shadow: 3px 0px 30px rgba(163,163,163, 0.4);
 }
+
+${props =>props.valid === 'true' && css`
+border: 3px solid transparent;
+`}
+${props =>props.valid === 'false' && css`
+border: 3px solid ${colors.error} !important;
+`}
 `;
 
 const ErrorCaption = styled.p`
@@ -56,10 +70,16 @@ margin-bottom: 0;
 color: #fff;
 display: none;
 
+${props =>props.valid === 'true' && css`
+display: none;
+`}
+${props =>props.valid === 'false' && css`
+display: block;
+`}
 `;
 
 const IconValidation = styled(FontAwesomeIcon)`
-color: ${colors.error};
+
 position: absolute;
 right: 10px;
 bottom: 14px;
@@ -67,6 +87,14 @@ z-index: 100;
 font-size: 18px;
 opacity: 0;
 
+${props =>props.valid === 'true' && css`
+opacity: 1;
+color: ${colors.success};
+`}
+${props =>props.valid === 'false' && css`
+opacity: 1;
+color: ${colors.error};
+`}
 `;
 
 const TermsContainer = styled.div`
@@ -76,6 +104,10 @@ input {
     margin-right: 10px;
 
 }
+
+@media (max-width: 800px) {
+    grid-column: span 1;
+}
 `;
 
 const ButtonCenterContainer = styled.div`
@@ -83,6 +115,10 @@ display: flex;
 flex-direction: column;
 align-items: center;
 grid-column: span 2;
+
+@media (max-width: 800px) {
+    grid-column: span 1;
+}
 
 `;
 
@@ -106,7 +142,7 @@ trasition: .1s ease all;
 const SuccessfulMessage = styled.p`
 color: ${colors.success};
 font-size: 14px;
-display : none;
+
 `;
 
 const ErrorMessage = styled.div`
@@ -124,7 +160,10 @@ grid-column: span 2;
  b{
      margin-left: 10px;
  }
-
+ 
+ @media (max-width: 800px) {
+    grid-column: span 1;
+}
 `;
 
 export {Forms, Label, InputGroup, Input, ErrorCaption, IconValidation, TermsContainer, ButtonCenterContainer, Button, SuccessfulMessage, ErrorMessage};

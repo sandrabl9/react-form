@@ -1,17 +1,48 @@
 import React from 'react';
 import { Label, InputGroup, ErrorCaption, IconValidation, Input } from './../elements/Forms';
-import { faSquareXmark } from "@fortawesome/free-solid-svg-icons";
+import { faSquareXmark, faCheckSquare} from "@fortawesome/free-solid-svg-icons";
 
-const InputComponent = () => {
-    return(
+const InputComponent = ({state, setState, type, label, placeholder, name, errorCaption, regularExpression,validate }) => {
+     const onChange = (e) => {
+      setState({...state, field: e.target.value});
+      
+    } 
+    const validation = () => {
+      if(regularExpression){
+        if(regularExpression.test(state.field)) {
+       setState({...state, valid:'true'});
+    } else {
+      setState({...state, valid:'false'});
+    }}
+
+
+    if(validate){
+     validate();
+    }
+  }
+
+  
+  return(
         <div>
-        <Label htmlFor="name">User</Label>
+        <Label htmlFor={name}
+        valid={state.valid}>{label}</Label>
         <InputGroup>
-          <Input type="text" placeholder="Name" id="name" />
-          <IconValidation icon={faSquareXmark} />
+          <Input 
+          type={type} 
+          placeholder={placeholder} 
+          id={name}
+          value={state.field}
+          onChange={onChange} 
+          onKeyUp={validation}
+          onBlur={validation}
+          valid={state.valid}
+          />
+          <IconValidation icon={state.valid === 'true' ? faCheckSquare : faSquareXmark}
+          valid={state.valid} />
         </InputGroup>
 
-        <ErrorCaption> leyenda ajajjajfhhfhs</ErrorCaption>
+        <ErrorCaption
+        valid={state.valid}> {errorCaption}</ErrorCaption>
       </div>
     );
 };
